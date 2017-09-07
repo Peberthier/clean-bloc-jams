@@ -1,3 +1,5 @@
+
+
 var albumPicasso = {
   title: 'The Colors',
   artist: 'Pablo Picasso',
@@ -27,6 +29,23 @@ var albumMarconi = {
       { title: 'Wrong phone number', duration: '2:15'}
   ]
 };
+
+var albumPierre = {
+    title: 'The Telephonebis',
+    artist: 'Guglielmo Marconibis',
+    label: 'EMbis',
+    year: '1909bis',
+    albumArtUrl: 'assets/images/album_covers/20.png',
+    songs: [
+      { title: 'Hello, Operator?', duration: '1:01' },
+      { title: 'Ring, ring, ring', duration: '5:01' },
+      { title: 'Fits in your pocket', duration: '3:21'},
+      { title: 'Can you hear me now?', duration: '3:14' },
+      { title: 'Wrong phone number', duration: '2:15'}
+  ]
+};
+
+var threeAlbum = [albumPicasso, albumMarconi, albumPierre];
 
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
@@ -64,3 +83,15 @@ for (var i = 0; i < album.songs.length; i++) {
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
 };
+
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var i = 1;
+var clickFunction = function() {
+  setCurrentAlbum (threeAlbum[i]);
+  i = i + 1;
+  if (i > 2) {
+    i = 0;
+  }
+};
+
+albumImage.addEventListener("click", clickFunction);
