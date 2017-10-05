@@ -12,12 +12,12 @@ var setSong = function (songNumber) {
     });
 
     setVolume(currentVolume);
-};
+  };
 
-var setVolume = function(volume) {
-  if (currentSoundFile) {
-    currentSoundFile.setVolume(volume);
-  }
+    var setVolume = function(volume) {
+    if (currentSoundFile) {
+        currentSoundFile.setVolume(volume);
+      };
 };
 
 var getSongNumberCell = function(number) {
@@ -106,7 +106,6 @@ var nextSong = function() {
   $nextSongNumberCell.html(pauseButtonTemplate);
   $lastSongNumberCell.html(lastSongNumber);
 };
-
 var previousSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     // Note that we're _decrementing_ the index here
@@ -194,15 +193,39 @@ var updatePlayerBarSong = function() {
 }
 
 var currentAlbum = null;
-var currentlyPlayingSongNumber = parseInt(null);
+var currentlyPlayingSongNumber = parseInt(1);
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
+var currentVolume = 80;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
-var currentVolume = 80;
+var $playBar = $('.main-controls .play-pause');
 
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
 });
+
+$(document).ready(function() {
+  $playBar.click(togglePlayFromPlayerBar);
+});
+
+var togglePlayFromPlayerBar = function() {
+  if (currentSoundFile) {
+  if (currentSoundFile.isPaused() === true) {
+    (getSongNumberCell(currentlyPlayingSongNumber)).html(pauseButtonTemplate);
+    updatePlayerBarSong();
+    currentSoundFile.play();
+  } else if (currentSoundFile) {
+    (getSongNumberCell(currentlyPlayingSongNumber)).html(playButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPlayButton);
+    currentSoundFile.pause();
+  }
+} else {
+  setSong(1);
+  (getSongNumberCell(currentlyPlayingSongNumber)).html(pauseButtonTemplate);
+  updatePlayerBarSong();
+  currentSoundFile.play();
+}
+}
