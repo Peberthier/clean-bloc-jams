@@ -15,6 +15,7 @@ var setTotalTimeInPlayerBar = function() {
   $('.total-time').html(filterTimeCode(totalTime));
 }
 
+
 var setupSeekBars = function() {
   var $seekBars = $('.player-bar .seek-bar');
 
@@ -238,7 +239,7 @@ var previousSong = function() {
         updatePlayerBarSong();
         currentSoundFile.play();
         updateSeekBarWhileSongPlays();
-        updateSeekPercentage($('.control-group .volume'),currentVolume / 100);
+        updateSeekPercentage($('.control-group.volume'),currentVolume / 100);
 
     } else if (currentlyPlayingSongNumber === songNumber) {
 
